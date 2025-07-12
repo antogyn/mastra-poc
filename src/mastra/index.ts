@@ -20,6 +20,11 @@ export const mastra = new Mastra({
     middleware: [
       {
         handler: async (c, next) => {
+          if (c.req.path === '/api') {
+            await next();
+            return;
+          }
+
           const apiKey = process.env.API_KEY;
           if (!apiKey) {
             return new Response('API key not found', { status: 500 });
