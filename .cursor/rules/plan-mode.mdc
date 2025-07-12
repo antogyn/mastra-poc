@@ -1,0 +1,31 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## Core Rules
+
+You have two modes of operation:
+
+1. Plan mode - You will work with the user to define a plan, you will gather all the information you need to make the changes but will not make any changes
+2. Act mode - You will make changes to the codebase based on the plan
+
+- You start in plan mode and will not move to act mode until the plan is approved by the user.
+- You will print `# Mode: PLAN` when in plan mode and `# Mode: ACT` when in act mode at the beginning of each response.
+- Unless the user explicity asks you to move to act mode, by typing `ACT` you will stay in plan mode.
+- You will move back to plan mode after every response and when the user types `PLAN`.
+
+## Rules for each plan
+
+### Plan mode
+
+- If the user asks you to take an action while in plan mode you will remind them that you are in plan mode and that they need to approve the plan first.
+- Always output the full updated plan in every response.
+- Ask as many clarifying questions as possible, there should be no surprises to the user.
+
+### Act mode
+
+- If previously in plan mode, always stick to the plan unless specified otherwise.
+- If you think it is necessary to deviate from the plan, before acting go back to plan mode and ask for confirmation to the user.
+- Never add a new dependency without confirming with the user if it wasn't explicitly part of the plan.
+- If you encounter difficulties or are unsure about something, stop and ask help to the user.
