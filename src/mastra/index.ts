@@ -16,4 +16,29 @@ export const mastra = new Mastra({
     name: 'Mastra',
     level: 'info',
   }),
+  server: {
+    middleware: [
+      {
+        handler: async (c, next) => {
+          const apiKey = process.env.API_KEY;
+          if (!apiKey) {
+            return new Response('API key not found', { status: 500 });
+          }
+
+          const authHeader = c.req.header('Authorization');
+          if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return new Response('Unauthorized', { status: 401 });
+          }
+
+          const token = authHeader.split(' ')[1];
+          if (token !== apiKey) {
+            return new Response('Forbidden', { status: 403 });
+          }
+
+          await next();
+        },
+        path: '/api/*',
+      }
+    ]
+  }
 });
